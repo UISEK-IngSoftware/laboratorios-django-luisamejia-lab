@@ -1,18 +1,17 @@
 {% extends 'base.html' %}
-{% block title %}Detalles del Pokemon{% endblock title %}   
-{% block content %}
-            <p>Has elegido el pokemon: <strong>{{ pokemon | capfirst }}</strong></p>
+{% block title %}Detalles del entrenador{% endblock title %}    
+{% block content  %}
+            <p>Has elegido el entrenador: <strong>{{ trainer | capfirst }}</strong></p>
        <ul class="list-group">
                 <li class="list-group-item">
-                 <strong>Nombre:</strong> {{ pokemon.name | capfirst }}
+                 <strong>Nivel:</strong> {{ trainer.level | capfirst }}
                 <li class="list-group-item">
-                 <strong>Tipo:</strong> {{ pokemon.type | capfirst }}
+                 <strong>Fecha de nacimiento:</strong> {{ trainer.birth_date | capfirst }}
                 </li>
                 <li class="list-group-item">
                  <strong>Altura:</strong> {{ pokemon.height | capfirst }}
                  <li class="list-group-item">
                  <strong>Peso:</strong> {{ pokemon.weight | capfirst }}
-                 <li><strong>Entrenador:</strong> {{ pokemon.trainer | capfirst }}</li>
                 </li>
             </ul>  
         </div>
