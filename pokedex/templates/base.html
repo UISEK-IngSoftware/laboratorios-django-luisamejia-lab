@@ -12,6 +12,24 @@
             <div class="bg-primary text-white p-4 text-center">
                 <img src="{% static "logo_pokedex.png" %}" alt="Pokedex" class="logo">
             </div>
+            <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                            <a class="nav-link" href="{% url 'pokedex:index' %}">Inicio</a>
+                            {% if not user.is_authenticated %}
+                            <a class="nav-link" href="{% url 'pokedex:login' %}">Iniciar Sesion</a>
+                            <i class="fas fa-sing-in-alt"></i>   
+                            {% else %}
+                            <a class="nav-link" href="{% url 'logout' %}">Cerrar sesion</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </nav>
             {% block content %}
             {% endblock content %}
          

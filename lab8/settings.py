@@ -132,3 +132,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+login_redirect_url = 'pokedex:index'
+logout_redirect_url = 'pokedex:index'
+login_url = 'pokedex:login'
