@@ -1,50 +1,63 @@
 {% extends 'base.html' %}
-{% block title %}Pagina inicial{% endblock title %} 
-{% block content %}
-{% if user.is_authenticated %}
-<a href="{% url 'pokedex:add pokemon' %}" class="btn btn-success mb-3" role="button">
-  <i class="fa-solid fa-plus"></i> Agregar Pokemon</a>
-{% endif %}
-<h3>Pokemons</h3>
-<a href="{% url 'pokedex:add_pokemon' %}" >Agregar Pokemon</a>
-<div class="row">
-  {% for pokemon in pokemons %}
-  <div class="col-sm-4 mb-4">
-    <a href="{% url 'pokedex:pokemon' id=pokemon.id %}">{{ pokemon | capfirst }}</a>
+{% block title %}Página Inicial - Pokedex{% endblock %}
 
-    <div class="card" style="width: 100%">
-      <img class="card-img-top" src="{{ pokemon.picture.url }}" alt="{{ pokemon.name }}"/>
-      <div class="card-body">
-        <h5 class="card-title">{{ pokemon.name | capfirst }}</h5>
-        <p class="card-text">Tipo: {{ pokemon.type }}</p>
-        <a href="{% url 'pokedex:pokemon' id=pokemon.id %}" class="btn btn-primary">
-            <i class="fa-thin fa-eye"></i>
-                Ver detalles
-               <a href="{% url 'pokedex:edit_pokemon' id=pokemon.id %}" class="btn btn-primary">
-            <i class="fa-thin fa-pencil"></i>
-                Editar
-                {% if user.is_authenticated %}
-                <i class="fa-solid fa-pen-to-square"></i> 
-                  Editar
-                  {% endif %}
-<a href="{% url 'pokedex:delete_pokemon' id=pokemon.id %}" class="btn btn-danger">
-            <i class="fa-thin fa-trash"></i>
-                Eliminar
+{% block content %}
+<div class="container my-4">
+    <!-- Encabezado de la sección -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold m-0 text-dark">Pokémon Registrados</h3>
+        {% if user.is_authenticated %}
+        <a href="{% url 'pokedex:add_pokemon' %}" class="btn btn-pokedex">
+            <i class="fa-solid fa-plus me-2"></i> Añadir Pokémon
         </a>
-        
-      </div>
+        {% endif %}
     </div>
-  </div>
-  {% endfor %}
+
+    <!-- Rejilla de cartas -->
+    <div class="row">
+        {% for pokemon in pokemons %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 pokemon-card">
+                {% if pokemon.picture %}
+                <div class="pokemon-img-bg">
+                    <img src="{{ pokemon.picture.url }}" alt="{{ pokemon.name }}">
+                </div>
+                {% endif %}
+                
+                <div class="card-body d-flex flex-column text-center">
+                    <h4 class="card-title mb-3 fw-bold text-dark">{{ pokemon.name | capfirst }}</h4>
+
+                    <div class="d-flex justify-content-around mb-4 text-muted small">
+                        <div>
+                            <i class="fa-solid fa-ruler-vertical me-1"></i> {{ pokemon.height }} cm
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-weight-hanging me-1"></i> {{ pokemon.weight }} kg
+                        </div>
+                    </div>
+
+                    <div class="mt-auto d-flex gap-2">
+                        <a href="{% url 'pokedex:pokemon' id=pokemon.id %}" class="btn btn-pokedex flex-grow-1">
+                            <i class="fa-solid fa-eye me-2"></i>Ver
+                        </a>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'pokedex:edit_pokemon' id=pokemon.id %}" class="btn btn-light btn-action text-secondary border" title="Editar">
+                            <i class="fa-solid fa-pencil"></i>
+                        </a>
+                        <a href="{% url 'pokedex:delete_pokemon' id=pokemon.id %}" class="btn btn-outline-danger btn-action" title="Eliminar" onclick="return confirm('¿Estás seguro de que deseas liberar a {{ pokemon.name | capfirst }}?');">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center text-muted my-5">
+            <i class="fa-solid fa-box-open fa-3x mb-3"></i>
+            <p>No hay Pokémon registrados todavía.</p>
+        </div>
+        {% endfor %}
+    </div>
 </div>
-<h3>Trainers</h3>
-<ul class="list-group">
-  {% for trainer in trainers %}
-  <li class="list-group-item">
-    <a href="{% url 'pokedex:trainer_details' trainer_id=trainer.id %}"
-      >{{ trainer | capfirst }}</a
-    >
-  </li>
-  {% endfor %}
-</ul>
-{% endblock content %}
+{% endblock %}

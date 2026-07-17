@@ -14,7 +14,7 @@ class Pokemon(models.Model):
     type = models.CharField(max_length=50)
     height = models.FloatField()
     weight = models.FloatField()
-    trainer = models.ForeignKey(trainer, on_delete=models.CASCADE, related_name='pokemons') 
+    trainer = models.ForeignKey(trainer, on_delete=models.SET_NULL, null=True)
     picture = models.ImageField(upload_to='pokemon_pictures/', null=True, blank=True)   
     def __str__(self):
         return self.name

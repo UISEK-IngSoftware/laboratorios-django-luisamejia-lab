@@ -1,10 +1,19 @@
 {% extends 'base.html' %}
-{% block title %}Formulario de Pokemon{% endblock title %}   
+{% block title %}Formulario de Pokémon{% endblock title %}   
+
 {% block content %}
-<form action="{% url 'pokedex:add_pokemon' %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}     
-   {{ form.as_div }}
-    <button type="submit" class="btn btn-primary">Agregar Pokemon</button>
-    <a href="{% url 'pokedex:index' %}" class="btn btn-secondary">Atras</a>
+<div class="pokedex-box shadow-sm">
+    <h3 class="fw-bold mb-4 text-dark text-center">Datos del Pokémon</h3>
+    
+    <form action="{% url 'pokedex:add_pokemon' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}     
+        <div class="mb-4">
+            {{ form.as_div }}
+        </div>
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-pokedex flex-grow-1">Agregar Pokémon</button>
+            <a href="{% url 'pokedex:index' %}" class="btn btn-secondary border-0" style="border-radius: 25px;">Atrás</a>
+        </div>
     </form>
+</div>
 {% endblock content %}

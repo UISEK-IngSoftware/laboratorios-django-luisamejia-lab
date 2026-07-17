@@ -1,20 +1,28 @@
 {% extends 'base.html' %}
-{% block title %}Detalles del entrenador{% endblock title %}    
-{% block content  %}
-            <p>Has elegido el entrenador: <strong>{{ trainer | capfirst }}</strong></p>
-       <ul class="list-group">
-                <li class="list-group-item">
-                 <strong>Nivel:</strong> {{ trainer.level | capfirst }}
-                <li class="list-group-item">
-                 <strong>Fecha de nacimiento:</strong> {{ trainer.birth_date | capfirst }}
-                </li>
-                <li class="list-group-item">
-                 <strong>Altura:</strong> {{ pokemon.height | capfirst }}
-                 <li class="list-group-item">
-                 <strong>Peso:</strong> {{ pokemon.weight | capfirst }}
-                </li>
-            </ul>  
-        </div>
-    </body>
-</html>
+{% block title %}Detalles del Entrenador{% endblock title %}    
+
+{% block content %}
+<div class="pokedex-box shadow-sm">
+    <h3 class="fw-bold text-center mb-4">Ficha de Entrenador</h3>
+    <p class="text-muted text-center mb-4">Has elegido al entrenador: <strong class="text-dark">{{ trainer | capfirst }}</strong></p>
+    
+    <ul class="list-group shadow-sm mb-4">
+        <li class="list-group-item d-flex justify-content-between">
+            <span><strong>Nombre:</strong></span> 
+            <span>{{ trainer | capfirst }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <span><strong>Nivel:</strong></span> 
+            <span>Nvl. {{ trainer.level }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <span><strong>Fecha de Nacimiento:</strong></span> 
+            <span>{{ trainer.birth_date }}</span>
+        </li>
+    </ul>  
+    
+    <div class="text-center">
+        <a href="{% url 'pokedex:index' %}" class="btn btn-secondary px-4" style="border-radius: 25px;">Volver al Inicio</a>
+    </div>
+</div>
 {% endblock content %}
